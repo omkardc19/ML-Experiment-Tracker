@@ -1,24 +1,32 @@
-import json
+from collections.abc import Iterator
 from pathlib import Path
 
+from exptrack.models import Run
 
-def save_run(run: dict, path: Path) -> None:
+
+def save_run(run: Run, path: Path) -> None:
     """Append a run as a JSON line to the file at `path`."""
     path.parent.mkdir(parents=True, exist_ok=True)
 
     with path.open("a", encoding="utf-8") as file:
-        file.write(json.dumps(run))
+        file.write(run.model_dump_json())
         file.write("\n")
 
 
-def load_runs(path: Path) -> list[dict]:
-    """Load all runs from a JSON-lines file."""
+def iter_runs(path: Path) -> Iterator[Run]:
+    """Yield runs from a JSON-lines file using a generator, lazy evaluation."""
     if not path.exists():
-        return []
+        return
 
-    runs: list[dict] = []
     with path.open("r", encoding="utf-8") as file:
         for line in file:
             if line.strip():
-                runs.append(json.loads(line))
-    return runs
+                yield Run.model_validate_json(line)
+
+
+def load_runs(path: Path) -> list[Run]:
+    """Load all runs from a JSON-lines file, eager evaluation."""
+    if not path.exists():
+        return []
+
+    return list(iter_runs(path))
