@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Experiment tracker for ML experiments"
 readme = "README.md"
 authors = [
-    { name = "om", email = "omkardc18@gmail.com" }
+    { name = "om", email = "cantshare@gmail.com" }
 ]
 requires-python = ">=3.12"
 dependencies = [
