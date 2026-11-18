@@ -1,7 +1,7 @@
 [project]
 name = "exptrack"
 version = "0.1.0"
-description = "Add your description here"
+description = "Experiment tracker for ML experiments"
 readme = "README.md"
 authors = [
     { name = "om", email = "omkardc18@gmail.com" }

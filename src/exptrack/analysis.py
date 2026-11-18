@@ -24,10 +24,7 @@ def best_run(
         current_value = run.metrics[metric]
         best_value = best.metrics[metric]
 
-        if mode == "min" and current_value < best_value :
-            best = run
-            
-        elif mode == "max" and current_value > best_value:
+        if mode == "min" and current_value < best_value  or mode == "max" and current_value > best_value:
             best = run
 
     return best
